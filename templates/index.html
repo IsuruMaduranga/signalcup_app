@@ -1,0 +1,203 @@
+<!doctype html>
+<html>
+
+<head>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/lux/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-oOs/gFavzADqv3i5nCM+9CzXe3e5vXLXZ5LZ7PplpsWpTCufB7kqkTlC9FtZ5nJo" crossorigin="anonymous">
+
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+</head>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#get_data").click(function() {
+
+        $.getJSON('/get_word', function(dat) {
+
+          $("#pred").text(dat[0]);
+          $("#secs").text(dat[1]);
+          $("#nsecs").text(dat[2]);
+          $("#seq").text(dat[3]);
+        
+        });
+      
+      });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#get_data_back").click(function() {
+
+        $.getJSON('/get_word_back', function(dat) {
+
+            $("#pred").text(dat[0]);
+            $("#secs").text(dat[1]);
+            $("#nsecs").text(dat[2]);
+            $("#seq").text(dat[3]);
+        
+        });
+      
+      });
+    });
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $("#get_image").click(function() {
+
+        var x = document.getElementById("image0");
+
+        $.getJSON('/get_image', function(dat) {
+
+            x.setAttribute("src", dat[0]);
+
+            $("#img_pred").text(dat[1][0]);
+            $("#img_secs").text(dat[1][1]);
+            $("#img_nsecs").text(dat[1][2]);
+            $("#img_seq").text(dat[1][3]);
+        
+        });
+      
+      });
+    });
+
+</script>
+
+
+
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">TEAM Icarus Inhibition : Team ID : 26289</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarColor01">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">HELP</a>
+            </li>
+
+          </ul>
+  
+        </div>
+      </nav>
+
+
+    <div class="border-top my-3"></div>
+
+
+    <div class="container">
+    <form method="POST">
+        <div class="form-group">
+          <center><label for="exampleInputEmail1">Input bag file here</label></center>
+          <input name="text" class="form-control"  aria-describedby="emailHelp" placeholder="Enter bag file here">
+
+        </div>
+        <center>
+            <button type="submit" class="btn btn-primary">Submit Bag File</button>
+        </center>
+      </form>
+    </div>
+
+
+    <div class="border-top my-3"></div>
+
+
+
+    <div class="row">
+
+        <div class="col">
+
+            <div class="card card-body mb-5">
+
+                
+
+
+                <center><h3>pylon camera image predictions</h3></center>
+
+
+                <p></p>
+                <center><img id='image0' src="../static/images/0.png" height="200" width="200"></center>
+                <p></p>
+                <div class="row">
+                    <h4> prediction :  </h4>
+                    <a id="img_pred">Prediction</a>
+                </div>
+                <div class="row">
+                    <h4> Seconds : </h4>
+                    <a id="img_secs">Seconds</a>
+                </div>
+                <div class="row">
+                    <h4> Nano Senconds : </h4>
+                    <a id="img_nsecs">Nano Senconds</a>
+                </div>
+                <div class="row">
+                    <h4> Sequence : </h4>
+                    <a id="img_seq">Sequence ID</a>
+                </div>
+
+                <center>
+
+                    <div class="one">
+                        <button  id='get_image' type="button" class="btn btn-primary">Next</button>
+                    </div>
+
+                                    
+                </center>
+
+
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card card-body mb-5">
+
+                <div class="two">
+                    <center><h3>IMU data predictions</h3></center>
+
+
+                    <div class="row">
+                    <h4> prediction : </h4>
+                        <a id="pred">Prediction</a>
+                    </div>
+                    <div class="row">
+                    <h4> Seconds : </h4>
+                    <a id="secs">Seconds</a>
+                    </div>
+                    <div class="row">
+                    <h4> Nano Senconds : </h4>
+                    <a id="nsecs">Nano Senconds</a>
+                    </div>
+                    <div class="row">
+                    <h4> Sequence : </h4>
+                    <a id="seq">Sequence ID</a>
+                    </div>
+                </div>
+
+                <center>
+
+                    <div class="one">
+                        <button id='get_data_back' type="button" class="btn btn-primary" >Previous</button>
+                        <button id='get_data' type="button" class="btn btn-primary">Next</button>
+                    </div>
+                
+                </center>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

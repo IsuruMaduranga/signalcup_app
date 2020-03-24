@@ -1,0 +1,8 @@
+roslibpy
+opencv-python
+keras
+tensorflow
+numpy
+joblib
+scikit-learn
+matplotlib
