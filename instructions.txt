@@ -1,0 +1,15 @@
+1. Install docker on your system
+
+2. Put you bag file in ./data
+
+3. Start a shell in this directory or Navigate to this directory
+
+4. To run the system run following command
+
+    docker-compose up
+
+5. To stop the app press ctrl+c
+
+6. To run the application using latest images run following command
+
+    docker-compose build --pull && docker-compose up

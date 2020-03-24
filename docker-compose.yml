@@ -1,0 +1,25 @@
+
+version: "3"
+services:
+
+  ros:
+    image: "isurumaduranga/signalcup_ros_custom:latest"
+    volumes:
+      - ./data:/data
+    networks:
+      - spcup_uom
+  app:
+    image: "isurumaduranga/signalcup_app:latest"
+    volumes:
+      - ./data:/data
+    ports:
+      - "5000:5000"
+    environment:
+      - HOST=ros
+    networks:
+      - spcup_uom
+    depends_on:
+      - ros
+
+networks:
+  spcup_uom:

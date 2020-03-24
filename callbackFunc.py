@@ -72,13 +72,13 @@ def ImuCallback(L,imu_hed):
 				fo = open("output.txt","a")
 				fo.write("ANOMALY," + str(imu_hed['stamp']['secs'] )+ "," + str(imu_hed['stamp']['secs'] ) + "," + str(imu_hed['seq']) + "\n")
 				fo.close()
-				print("ANOMALY")
+				print("IMU Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: ANOMALY".format(str(imu_hed['stamp']['secs'] ),str(imu_hed['stamp']['secs'] ),str(imu_hed['seq'])))
 				imu_name_count+=1
 			else:
 				fo = open("output.txt","a")
 				fo.write("NORMAL," + str(imu_hed['stamp']['secs'] )+ "," + str(imu_hed['stamp']['secs'] ) + "," + str(imu_hed['seq']) + "\n")
 				fo.close()
-				print("NORMAL")
+				print("IMU Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: NORMAL".format(str(imu_hed['stamp']['secs'] ),str(imu_hed['stamp']['secs'] ),str(imu_hed['seq'])))
 				imu_name_count+=1
 		count+=1
 
@@ -95,14 +95,14 @@ def ImuCallback(L,imu_hed):
 			fo = open("output.txt","a")
 			fo.write("ANOMALY," + str(imu_hed['stamp']['secs'] )+ "," + str(imu_hed['stamp']['secs'] ) + "," + str(imu_hed['seq']) + "\n")
 			fo.close()
-			print("ANOMALY")
+			print("IMU Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: ANOMALY".format(str(imu_hed['stamp']['secs'] ),str(imu_hed['stamp']['secs'] ),str(imu_hed['seq'])))
 			imu_name_count+=1
 		else:
 			fo = open("output.txt","a")
 			fo.write("NORMAL," + str(imu_hed['stamp']['secs'] )+ "," + str(imu_hed['stamp']['secs'] ) + "," + str(imu_hed['seq']) + "\n")
 			fo.close()
 			imu_name_count+=1
-			print("NORMAL")
+			print("IMU Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: NORMAL".format(str(imu_hed['stamp']['secs'] ),str(imu_hed['stamp']['secs'] ),str(imu_hed['seq'])))
 	
 
 def ImageCallback(Imagedata):
@@ -144,14 +144,14 @@ def ImageCallback(Imagedata):
 				fo = open("output_image.txt","a")
 				fo.write("ANOMALY," + str(im_hed['stamp']['secs'] )+ "," + str(im_hed['stamp']['secs'] ) + "," + str(im_hed['seq']) + "\n")
 				fo.close()
-				print("ANOMALY IMAGE",evals)
+				print("IMAGE Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: ANOMALY".format(str(im_hed['stamp']['secs'] ),str(im_hed['stamp']['secs'] ),str(im_hed['seq'])))
 				cv2.imwrite('static/images/'+str(image_name_count)+ '.png',bb)
 				image_name_count+=1
 			else:
 				fo = open("output_image.txt","a")
 				fo.write("NORMAL," + str(im_hed['stamp']['secs'] )+ "," + str(im_hed['stamp']['secs'] ) + "," + str(im_hed['seq']) + "\n")
 				fo.close()
-				print("NORMAL IMAGE")
+				print("IMAGE Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: NORMAL".format(str(im_hed['stamp']['secs'] ),str(im_hed['stamp']['secs'] ),str(im_hed['seq'])))
 				cv2.imwrite('static/images/'+str(image_name_count)+ '.png',bb)
 				image_name_count+=1
 		image_count+=1
@@ -170,14 +170,14 @@ def ImageCallback(Imagedata):
 			fo = open("output_image.txt","a")
 			fo.write("ANOMALY," + str(im_hed['stamp']['secs'] )+ "," + str(im_hed['stamp']['secs'] ) + "," + str(im_hed['seq']) + "\n")
 			fo.close()
-			print("ANOMALY IMAGE",evals)
+			print("IMAGE Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: ANOMALY".format(str(im_hed['stamp']['secs'] ),str(im_hed['stamp']['secs'] ),str(im_hed['seq'])))
 			cv2.imwrite('static/images/'+str(image_name_count)+ '.png',bb)
 			image_name_count+=1
 		else:
 			fo = open("output_image.txt","a")
 			fo.write("NORMAL," + str(im_hed['stamp']['secs'] )+ "," + str(im_hed['stamp']['secs'] ) + "," + str(im_hed['seq']) + "\n")
 			fo.close()
-			print("NORMAL IMAGE")
+			print("IMAGE Data ->  secs: {} , nsecs: {} , seq: {} ,  Status: NORMAL".format(str(im_hed['stamp']['secs'] ),str(im_hed['stamp']['secs'] ),str(im_hed['seq'])))
 			cv2.imwrite('static/images/'+str(image_name_count)+ '.png',bb)
 			image_name_count+=1
 			#cv2.imwrite('n___'+str(Imagedata.header.seq)+'.png',bb)
