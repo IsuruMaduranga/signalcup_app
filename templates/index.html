@@ -65,6 +65,28 @@
 
 </script>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#get_image_back").click(function() {
+
+      var x = document.getElementById("image0");
+
+      $.getJSON('/get_image_back', function(dat) {
+
+          x.setAttribute("src", dat[0]);
+
+          $("#img_pred").text(dat[1][0]);
+          $("#img_secs").text(dat[1][1]);
+          $("#img_nsecs").text(dat[1][2]);
+          $("#img_seq").text(dat[1][3]);
+      
+      });
+    
+    });
+  });
+
+</script>
+
 
 
 
@@ -144,15 +166,19 @@
                     <a id="img_seq">Sequence ID</a>
                 </div>
 
-                <center>
 
-                    <div class="one">
-                        <button  id='get_image' type="button" class="btn btn-primary">Next</button>
-                    </div>
+
+              <center>
+
+                  <div class="one">
+                      <button id='get_image_back' type="button" class="btn btn-primary" >Previous</button>
+                      <button id='get_image' type="button" class="btn btn-primary">Next</button>
+                  </div>
+              
+              </center>
+
 
                                     
-                </center>
-
 
             </div>
         </div>

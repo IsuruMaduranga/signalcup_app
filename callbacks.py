@@ -6,10 +6,11 @@ from callbackFunc import ImageCallback
 import time
 
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, flash
 import random, threading, webbrowser
 import time
 import os
+from os import path
 
 app = Flask(__name__)
 
@@ -26,7 +27,9 @@ def next():
 	fo = open("output.txt","r")
 	states_list = fo.read().split("\n")[:-1]
 	count += 1
-	L = states_list[count].split(',')
+
+	if 0 <= count < len(states_list) -1:
+		L = states_list[count].split(',')
 
 	return jsonify(L)
 
@@ -36,8 +39,10 @@ def previous():
 	global count
 	fo = open("output.txt","r")
 	states_list = fo.read().split("\n")[:-1]
-	count -= 1
-	L = states_list[count].split(',')
+	
+	if 0 < count < len(states_list):		
+		L = states_list[count].split(',')
+		count -= 1
 
 	return jsonify(L)
 
@@ -47,7 +52,7 @@ def nextImage():
 
 	global image_count
 
-	image_folder = 'processed'
+	image_folder = 'static/images/'
 	fo = open("output_image.txt","r")
 	states_list = fo.read().split("\n")[:-1]
 
@@ -79,13 +84,39 @@ def nextImage():
 
 
 @app.route('/get_image_back')
-def previousImage():
+def backImage():
 
-	global count
+	global image_count
+
+	image_folder = 'static/images/'
 	fo = open("output_image.txt","r")
 	states_list = fo.read().split("\n")[:-1]
-	count -= 1
-	L = states_list[count].split(',')
+
+	def split_elelm(x):
+		return x.split(",")
+
+	states_list = list(map(split_elelm ,states_list))
+
+	image_names = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
+
+	image_det  = {}
+
+	for i in image_names:
+		ext_pos = i.index(".")
+		im_index  = int(i[:ext_pos])
+		image_det[i] = states_list[im_index]
+
+	chosen_img = str(image_count) + '.png'
+
+	data = image_det[chosen_img]
+
+	L = ['static/images/'+ chosen_img,data]
+
+
+	if (image_count>1):
+		image_count -= 1
+
+	print (L)
 
 	return jsonify(L)
 
@@ -99,10 +130,13 @@ def index():
 @app.route('/', methods=['POST'])
 def my_form_post():
 	text = request.form['text']
-	main_(text)
-	return render_template('index.html')
+	if path.exists('./data/'+ text):
+		main_(text)
+		return render_template('index.html')
+	else:
 
- 
+		#flash('Bag file not found')
+		return render_template('index.html')
 
 
 def main_(bag_file):
@@ -115,7 +149,7 @@ def main_(bag_file):
 	fo.write("")
 	fo.close()
 
-	bag_file = '/data/normal.bag'
+	bag_file = '/data/'+str(bag_file)
 	played = False
 
 	def bagPlayed(Bagdata):
@@ -127,7 +161,7 @@ def main_(bag_file):
 			fo.write("bag finished playing")						
 			print("bag finished playing")
 			fo.close()
-
+	
 	client = roslibpy.Ros(host=os.environ['HOST'], port=8080)
 	client.run()
 	client.on_ready(lambda: print('Is ROS connected?', client.is_connected))
