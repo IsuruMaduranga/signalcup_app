@@ -130,13 +130,8 @@ def index():
 @app.route('/', methods=['POST'])
 def my_form_post():
 	text = request.form['text']
-	if path.exists('./data/'+ text):
-		main_(text)
-		return render_template('index.html')
-	else:
-
-		#flash('Bag file not found')
-		return render_template('index.html')
+	main_(text)
+	return render_template('index.html')
 
 
 def main_(bag_file):
@@ -161,7 +156,7 @@ def main_(bag_file):
 			fo.write("bag finished playing")						
 			print("bag finished playing")
 			fo.close()
-	
+
 	client = roslibpy.Ros(host=os.environ['HOST'], port=8080)
 	client.run()
 	client.on_ready(lambda: print('Is ROS connected?', client.is_connected))
